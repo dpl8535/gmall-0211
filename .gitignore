@@ -1,4 +1,7 @@
-.idea
+target/
+mvnw*
+.idea/
+.mvn/
 
 # Compiled class file
 *.class
