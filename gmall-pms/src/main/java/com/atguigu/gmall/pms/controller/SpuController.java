@@ -2,6 +2,7 @@ package com.atguigu.gmall.pms.controller;
 
 import java.util.List;
 
+import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,14 @@ public class SpuController {
 
     @Autowired
     private SpuService spuService;
+
+    @GetMapping("category/{categoryId}")
+    public ResponseVo<PageResultVo> getSpuByCategoryIdAndPageParamVo(
+            @PathVariable("categoryId") Long categoryId,  PageParamVo pageParamVo){
+        PageResultVo pageResultVo = spuService.getSpuByCategoryIdAndPageParamVo(categoryId,pageParamVo);
+
+        return ResponseVo.ok(pageResultVo);
+    }
 
     /**
      * 列表
