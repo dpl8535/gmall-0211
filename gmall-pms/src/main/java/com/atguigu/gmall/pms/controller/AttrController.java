@@ -35,8 +35,18 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    //pms/attr/category/225?type=0
+    //根据cid type search_type查询pms_attr
+    @GetMapping("category/{cid}")
+    public ResponseVo<List<AttrEntity>> getAttrByCid(@PathVariable("cid") Long cid,
+                                                     @RequestParam(required = false) Integer type,
+                                                     @RequestParam(required = false) Integer searchType) {
+        List<AttrEntity> attrEntityList = this.attrService.getAttrByCid(cid, type, searchType);
+        return ResponseVo.ok(attrEntityList);
+    }
+
     @GetMapping("group/{gId}")
-    public ResponseVo<List<AttrEntity>> getAttrByGroupId(@PathVariable("gId") Long gId){
+    public ResponseVo<List<AttrEntity>> getAttrByGroupId(@PathVariable("gId") Long gId) {
         QueryWrapper<AttrEntity> wrapper = new QueryWrapper<>();
         wrapper.eq("group_id", gId);
         List<AttrEntity> attrEntityList = attrService.list(wrapper);
@@ -48,7 +58,7 @@ public class AttrController {
      */
     @GetMapping
     @ApiOperation("分页查询")
-    public ResponseVo<PageResultVo> queryAttrByPage(PageParamVo paramVo){
+    public ResponseVo<PageResultVo> queryAttrByPage(PageParamVo paramVo) {
         PageResultVo pageResultVo = attrService.queryPage(paramVo);
 
         return ResponseVo.ok(pageResultVo);
@@ -60,8 +70,8 @@ public class AttrController {
      */
     @GetMapping("{id}")
     @ApiOperation("详情查询")
-    public ResponseVo<AttrEntity> queryAttrById(@PathVariable("id") Long id){
-		AttrEntity attr = attrService.getById(id);
+    public ResponseVo<AttrEntity> queryAttrById(@PathVariable("id") Long id) {
+        AttrEntity attr = attrService.getById(id);
 
         return ResponseVo.ok(attr);
     }
@@ -71,8 +81,8 @@ public class AttrController {
      */
     @PostMapping
     @ApiOperation("保存")
-    public ResponseVo<Object> save(@RequestBody AttrEntity attr){
-		attrService.save(attr);
+    public ResponseVo<Object> save(@RequestBody AttrEntity attr) {
+        attrService.save(attr);
 
         return ResponseVo.ok();
     }
@@ -82,8 +92,8 @@ public class AttrController {
      */
     @PostMapping("/update")
     @ApiOperation("修改")
-    public ResponseVo update(@RequestBody AttrEntity attr){
-		attrService.updateById(attr);
+    public ResponseVo update(@RequestBody AttrEntity attr) {
+        attrService.updateById(attr);
 
         return ResponseVo.ok();
     }
@@ -93,8 +103,8 @@ public class AttrController {
      */
     @PostMapping("/delete")
     @ApiOperation("删除")
-    public ResponseVo delete(@RequestBody List<Long> ids){
-		attrService.removeByIds(ids);
+    public ResponseVo delete(@RequestBody List<Long> ids) {
+        attrService.removeByIds(ids);
 
         return ResponseVo.ok();
     }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.atguigu.gmall.pms.entity.AttrEntity;
 import com.atguigu.gmall.pms.entity.CategoryEntity;
+import com.atguigu.gmall.pms.vo.GroupVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,8 +38,17 @@ public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
 
+    //根据类型id查询到属性组信息，根据组id查询属性信息值在商品列表的录入spu信息中显示
+    @GetMapping("withattrs/{catId}")
+    public ResponseVo<List<GroupVo>> queryGroupVoByCId(@PathVariable("catId") Long cid){
+       List<GroupVo> groupVos = this.attrGroupService.queryGroupVosByCId(cid);
+        return ResponseVo.ok(groupVos);
+    }
+
+    //获取属性组信息
     @GetMapping("category/{categoryId}")
-    public ResponseVo<List<AttrGroupEntity>> getCategoryByCategoryId(@PathVariable("categoryId") Long categoryId){
+    public ResponseVo<List<AttrGroupEntity>> getCategoryByCategoryId(
+            @PathVariable("categoryId") Long categoryId){
 
         QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("category_id", categoryId);

@@ -2,6 +2,7 @@ package com.atguigu.gmall.pms.controller;
 
 import java.util.List;
 
+import com.atguigu.gmall.pms.vo.SpuVo;
 import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +36,16 @@ public class SpuController {
     @Autowired
     private SpuService spuService;
 
+    /**
+     * 保存
+     */
+    @PostMapping
+    public ResponseVo save(@RequestBody SpuVo spuVo){
+        spuService.bigSave(spuVo);
+        return ResponseVo.ok();
+    }
+
+    //商品库存中根据category_id查找商品对应的spu
     @GetMapping("category/{categoryId}")
     public ResponseVo<PageResultVo> getSpuByCategoryIdAndPageParamVo(
             @PathVariable("categoryId") Long categoryId,  PageParamVo pageParamVo){
@@ -66,16 +77,7 @@ public class SpuController {
         return ResponseVo.ok(spu);
     }
 
-    /**
-     * 保存
-     */
-    @PostMapping
-    @ApiOperation("保存")
-    public ResponseVo<Object> save(@RequestBody SpuEntity spu){
-		spuService.save(spu);
 
-        return ResponseVo.ok();
-    }
 
     /**
      * 修改
