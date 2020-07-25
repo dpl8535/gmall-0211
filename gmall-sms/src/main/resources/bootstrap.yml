@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: sms-service
   cloud:
     nacos:
       config:
@@ -6,5 +8,3 @@ spring:
         namespace: fd6a76ea-a5df-41e9-b3e8-65750538ac4d
         group: dev
         file-extension: yml
-  application:
-    name: sms-service

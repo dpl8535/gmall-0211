@@ -11,14 +11,14 @@ import java.util.Map;
 /**
  * 商品属性
  *
- * @author Mr.Ding
- * @email MrDing@atguigu.com
- * @date 2020-07-20 19:47:01
+ * @author fengge
+ * @email fengge@atguigu.com
+ * @date 2020-07-20 14:05:40
  */
 public interface AttrService extends IService<AttrEntity> {
 
     PageResultVo queryPage(PageParamVo paramVo);
 
-    List<AttrEntity> getAttrByCid(Long cid, Integer type, Integer searchType);
+    List<AttrEntity> queryAttrsByCid(Long cid, Integer type, Integer searchType);
 }
 

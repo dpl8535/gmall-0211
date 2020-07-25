@@ -1,11 +1,16 @@
 server:
   port: 18081
-mybatis-plus:
-  mapper-locations: classpath:mapper/pms/*.xml  # 读取映射文
-  type-aliases-package: com.atguigu.gmall.pms.entity
-  global-config:
-    db-config:
-      id-type: auto  # 默认使用数据库自增
 feign:
   sentinel:
     enabled: true
+mybatis-plus:
+  mapper-locations: classpath:mapper/pms/**/*.xml
+  type-aliases-package: com.atguigu.gmall.pms.entity
+  global-config:
+    db-config:
+      id-type: auto
+spring:
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: pms-service-fescar-service-group

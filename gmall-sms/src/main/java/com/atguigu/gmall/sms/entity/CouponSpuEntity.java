@@ -10,9 +10,9 @@ import lombok.Data;
 /**
  * 优惠券与产品关联
  * 
- * @author Mr.Ding
- * @email MrDing@atguigu.com
- * @date 2020-07-22 21:01:18
+ * @author fengge
+ * @email fengge@atguigu.com
+ * @date 2020-07-20 14:28:31
  */
 @Data
 @TableName("sms_coupon_spu")

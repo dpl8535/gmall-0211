@@ -9,3 +9,8 @@ mybatis-plus:
 feign:
   sentinel:
     enabled: true
+spring:
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: sms-service-fescar-service-group
