@@ -1,5 +1,6 @@
 package com.atguigu.gmall.pms.service.impl;
 
+import com.atguigu.gmall.pms.vo.SpuVo;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -25,5 +26,6 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, SkuEntity> implements
 
         return new PageResultVo(page);
     }
+
 
 }

@@ -12,18 +12,24 @@ import java.util.Map;
 /**
  * spu信息
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:05:40
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-20 19:47:01
  */
 public interface SpuService extends IService<SpuEntity> {
 
     PageResultVo queryPage(PageParamVo paramVo);
 
-    PageResultVo querySpuByPageAndCid3(Long cid, PageParamVo paramVo);
+    PageResultVo getSpuByCategoryIdAndPageParamVo(Long cId, PageParamVo pageParamVo);
 
     void bigSave(SpuVo spuVo) throws FileNotFoundException;
 
+    void saveSku(SpuVo spuVo, Long spuId);
+
+    void saveBaseAttr(SpuVo spuVo, Long spuId);
+
+
+    Long saveSpu(SpuVo spuVo);
 
 }
 

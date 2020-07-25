@@ -11,9 +11,9 @@ import lombok.Data;
 /**
  * 商品会员价格
  * 
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:28:31
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-22 21:01:18
  */
 @Data
 @TableName("sms_member_price")

@@ -2,6 +2,8 @@ package com.atguigu.gmall.pms.controller;
 
 import java.util.List;
 
+import com.atguigu.gmall.pms.vo.SkuVo;
+import com.atguigu.gmall.pms.vo.SpuVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,9 +25,9 @@ import com.atguigu.gmall.common.bean.PageParamVo;
 /**
  * sku信息
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:05:40
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-20 19:47:01
  */
 @Api(tags = "sku信息 管理")
 @RestController
@@ -35,13 +37,12 @@ public class SkuController {
     @Autowired
     private SkuService skuService;
 
+    //商品库存中根据spuId查询sku表中的信息
     @GetMapping("spu/{spuId}")
-    public ResponseVo<List<SkuEntity>> querySkusBySpuId(@PathVariable("spuId")Long spuId){
-
-        List<SkuEntity> skuEntities = this.skuService.list(new QueryWrapper<SkuEntity>().eq("spu_id", spuId));
-        return ResponseVo.ok(skuEntities);
+    public ResponseVo<List<SkuEntity>> getSkuBySpuId(@PathVariable("spuId") Long spuId){
+        List<SkuEntity> skuEntityList = this.skuService.list(new QueryWrapper<SkuEntity>().eq("spu_id", spuId));
+        return ResponseVo.ok(skuEntityList);
     }
-
     /**
      * 列表
      */

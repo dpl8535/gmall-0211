@@ -10,9 +10,9 @@ import java.util.Map;
 /**
  * 秒杀活动商品关联
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:28:31
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-22 21:01:18
  */
 public interface SeckillSkuService extends IService<SeckillSkuEntity> {
 

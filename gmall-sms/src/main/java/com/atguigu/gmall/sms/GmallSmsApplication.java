@@ -7,8 +7,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSwagger2
 @EnableFeignClients
+@EnableSwagger2
 @MapperScan("com.atguigu.gmall.sms.mapper")
 public class GmallSmsApplication {
 

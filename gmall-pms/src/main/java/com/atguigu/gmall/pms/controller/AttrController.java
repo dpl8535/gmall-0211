@@ -3,7 +3,6 @@ package com.atguigu.gmall.pms.controller;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,9 @@ import com.atguigu.gmall.common.bean.PageParamVo;
 /**
  * 商品属性
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:05:40
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-20 19:47:01
  */
 @Api(tags = "商品属性 管理")
 @RestController
@@ -36,18 +35,22 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    //pms/attr/category/225?type=0
+    //根据cid type search_type查询pms_attr
     @GetMapping("category/{cid}")
-    public ResponseVo<List<AttrEntity>> queryAttrsByCid(@PathVariable("cid")Long cid,
-                                                        @RequestParam(value = "type", required = false)Integer type,
-                                                        @RequestParam(value = "searchType", required = false)Integer searchType){
-        List<AttrEntity> attrEntities = this.attrService.queryAttrsByCid(cid, type, searchType);
-        return ResponseVo.ok(attrEntities);
+    public ResponseVo<List<AttrEntity>> getAttrByCid(@PathVariable("cid") Long cid,
+                                                     @RequestParam(required = false) Integer type,
+                                                     @RequestParam(required = false) Integer searchType) {
+        List<AttrEntity> attrEntityList = this.attrService.getAttrByCid(cid, type, searchType);
+        return ResponseVo.ok(attrEntityList);
     }
 
-    @GetMapping("group/{gid}")
-    public ResponseVo<List<AttrEntity>> queryAttrsByGid(@PathVariable("gid")Long gid){
-        List<AttrEntity> attrEntities = this.attrService.list(new QueryWrapper<AttrEntity>().eq("group_id", gid));
-        return ResponseVo.ok(attrEntities);
+    @GetMapping("group/{gId}")
+    public ResponseVo<List<AttrEntity>> getAttrByGroupId(@PathVariable("gId") Long gId) {
+        QueryWrapper<AttrEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("group_id", gId);
+        List<AttrEntity> attrEntityList = attrService.list(wrapper);
+        return ResponseVo.ok(attrEntityList);
     }
 
     /**
@@ -55,7 +58,7 @@ public class AttrController {
      */
     @GetMapping
     @ApiOperation("分页查询")
-    public ResponseVo<PageResultVo> queryAttrByPage(PageParamVo paramVo){
+    public ResponseVo<PageResultVo> queryAttrByPage(PageParamVo paramVo) {
         PageResultVo pageResultVo = attrService.queryPage(paramVo);
 
         return ResponseVo.ok(pageResultVo);
@@ -67,8 +70,8 @@ public class AttrController {
      */
     @GetMapping("{id}")
     @ApiOperation("详情查询")
-    public ResponseVo<AttrEntity> queryAttrById(@PathVariable("id") Long id){
-		AttrEntity attr = attrService.getById(id);
+    public ResponseVo<AttrEntity> queryAttrById(@PathVariable("id") Long id) {
+        AttrEntity attr = attrService.getById(id);
 
         return ResponseVo.ok(attr);
     }
@@ -78,8 +81,8 @@ public class AttrController {
      */
     @PostMapping
     @ApiOperation("保存")
-    public ResponseVo<Object> save(@RequestBody AttrEntity attr){
-		attrService.save(attr);
+    public ResponseVo<Object> save(@RequestBody AttrEntity attr) {
+        attrService.save(attr);
 
         return ResponseVo.ok();
     }
@@ -89,8 +92,8 @@ public class AttrController {
      */
     @PostMapping("/update")
     @ApiOperation("修改")
-    public ResponseVo update(@RequestBody AttrEntity attr){
-		attrService.updateById(attr);
+    public ResponseVo update(@RequestBody AttrEntity attr) {
+        attrService.updateById(attr);
 
         return ResponseVo.ok();
     }
@@ -100,8 +103,8 @@ public class AttrController {
      */
     @PostMapping("/delete")
     @ApiOperation("删除")
-    public ResponseVo delete(@RequestBody List<Long> ids){
-		attrService.removeByIds(ids);
+    public ResponseVo delete(@RequestBody List<Long> ids) {
+        attrService.removeByIds(ids);
 
         return ResponseVo.ok();
     }

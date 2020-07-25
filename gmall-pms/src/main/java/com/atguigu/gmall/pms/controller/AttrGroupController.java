@@ -2,7 +2,9 @@ package com.atguigu.gmall.pms.controller;
 
 import java.util.List;
 
-import com.atguigu.gmall.pms.vo.AttrGroupVo;
+import com.atguigu.gmall.pms.entity.AttrEntity;
+import com.atguigu.gmall.pms.entity.CategoryEntity;
+import com.atguigu.gmall.pms.vo.GroupVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,9 +26,9 @@ import com.atguigu.gmall.common.bean.PageParamVo;
 /**
  * 属性分组
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:05:40
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-20 19:47:01
  */
 @Api(tags = "属性分组 管理")
 @RestController
@@ -36,16 +38,23 @@ public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
 
+    //根据类型id查询到属性组信息，根据组id查询属性信息值在商品列表的录入spu信息中显示
     @GetMapping("withattrs/{catId}")
-    public ResponseVo<List<AttrGroupVo>> queryGroupsWithAttrsByCid3(@PathVariable("catId")Long cid){
-        List<AttrGroupVo> groupVos = this.attrGroupService.queryGroupsWithAttrsByCid3(cid);
+    public ResponseVo<List<GroupVo>> queryGroupVoByCId(@PathVariable("catId") Long cid){
+       List<GroupVo> groupVos = this.attrGroupService.queryGroupVosByCId(cid);
         return ResponseVo.ok(groupVos);
     }
 
-    @GetMapping("category/{cid}")
-    public ResponseVo<List<AttrGroupEntity>> queryGroupsByCid3(@PathVariable("cid")Long cid){
-        List<AttrGroupEntity> groupEntities = this.attrGroupService.list(new QueryWrapper<AttrGroupEntity>().eq("category_id", cid));
-        return ResponseVo.ok(groupEntities);
+    //获取属性组信息
+    @GetMapping("category/{categoryId}")
+    public ResponseVo<List<AttrGroupEntity>> getCategoryByCategoryId(
+            @PathVariable("categoryId") Long categoryId){
+
+        QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category_id", categoryId);
+        List<AttrGroupEntity> attrGroupEntityList = attrGroupService.list(queryWrapper);
+
+        return ResponseVo.ok(attrGroupEntityList);
     }
 
     /**

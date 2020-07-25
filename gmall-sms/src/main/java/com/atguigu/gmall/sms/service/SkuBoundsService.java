@@ -6,19 +6,17 @@ import com.atguigu.gmall.common.bean.PageResultVo;
 import com.atguigu.gmall.common.bean.PageParamVo;
 import com.atguigu.gmall.sms.entity.SkuBoundsEntity;
 
-import java.util.Map;
-
 /**
  * 商品spu积分设置
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:28:31
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-22 21:01:18
  */
 public interface SkuBoundsService extends IService<SkuBoundsEntity> {
 
     PageResultVo queryPage(PageParamVo paramVo);
 
-    void saveSkuSales(SkuSaleVo skuSaleVo);
+    void saveSkuSale(SkuSaleVo skuSaleVo);
 }
 

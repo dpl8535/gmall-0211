@@ -2,12 +2,12 @@ package com.atguigu.gmall.pms.service.impl;
 
 import com.atguigu.gmall.pms.entity.AttrEntity;
 import com.atguigu.gmall.pms.mapper.AttrMapper;
-import com.atguigu.gmall.pms.vo.AttrGroupVo;
+import com.atguigu.gmall.pms.vo.GroupVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,21 +41,47 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
     }
 
     @Override
-    public List<AttrGroupVo> queryGroupsWithAttrsByCid3(Long cid) {
-        // 1.根据cid查询分组
-        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("category_id", cid));
-        if (CollectionUtils.isEmpty(attrGroupEntities)){
-            return null;
-        }
+    public List<GroupVo> queryGroupVosByCId(Long cid) {
+ /*       List<GroupVo> groupVoList = new ArrayList<>();
 
-        return attrGroupEntities.stream().map(attrGroupEntity -> {
-            AttrGroupVo groupVo = new AttrGroupVo();
+        QueryWrapper<AttrGroupEntity> wrapper = new QueryWrapper<AttrGroupEntity>().eq("category_id", cid);
+        //根据cId查询出属性组的信息
+        List<AttrGroupEntity> attrGroupEntities = this.baseMapper.selectList(wrapper);
+
+        //根据cId查询属性信息
+        for (AttrGroupEntity attrGroupEntity : attrGroupEntities) {
+            GroupVo groupVo = new GroupVo();
             BeanUtils.copyProperties(attrGroupEntity, groupVo);
-            // 2.根据分组id查询组下的规格参数
-            List<AttrEntity> attrEntities = this.attrMapper.selectList(new QueryWrapper<AttrEntity>().eq("group_id", attrGroupEntity.getId()).eq("type", 1));
-            groupVo.setAttrEntities(attrEntities);
+            List<AttrEntity> attrEntities = this.attrMapper.selectList(new QueryWrapper<AttrEntity>()
+                    .eq("group_id", groupVo.getId())
+                    .eq("type", 1));
+
+            if (attrEntities != null) {
+                groupVo.setAttrEntities(attrEntities);
+                groupVoList.add(groupVo);
+            }
+        }
+        return groupVoList;*/
+
+        List<GroupVo> groupVoList = new ArrayList<>();
+
+        QueryWrapper<AttrGroupEntity> wrapper =
+                new QueryWrapper<AttrGroupEntity>().eq("category_id", cid);
+        //根据cId查询出属性组的信息
+        List<AttrGroupEntity> attrGroupEntities = this.baseMapper.selectList(wrapper);
+
+        //显示规格下的所有属性值
+        return attrGroupEntities.stream().map(attrGroupEntity -> {
+            GroupVo groupVo = new GroupVo();
+            BeanUtils.copyProperties(attrGroupEntity,groupVo);
+            List<AttrEntity> attrEntityList =
+                    this.attrMapper.selectList(new QueryWrapper<AttrEntity>()
+                    .eq("group_id", attrGroupEntity.getId())
+                    .eq("type", 1));
+            groupVo.setAttrEntities(attrEntityList);
             return groupVo;
         }).collect(Collectors.toList());
+
     }
 
 }

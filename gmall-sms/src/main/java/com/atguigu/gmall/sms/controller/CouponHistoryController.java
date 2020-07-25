@@ -22,9 +22,9 @@ import com.atguigu.gmall.common.bean.PageParamVo;
 /**
  * 优惠券领取历史记录
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:28:31
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-22 21:01:18
  */
 @Api(tags = "优惠券领取历史记录 管理")
 @RestController

@@ -22,9 +22,9 @@ import com.atguigu.gmall.common.bean.PageParamVo;
 /**
  * spu信息介绍
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:05:40
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-20 19:47:01
  */
 @Api(tags = "spu信息介绍 管理")
 @RestController

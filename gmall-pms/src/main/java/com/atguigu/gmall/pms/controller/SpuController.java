@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import com.atguigu.gmall.pms.vo.SpuVo;
+import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ import com.atguigu.gmall.common.bean.PageParamVo;
 /**
  * spu信息
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:05:40
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-20 19:47:01
  */
 @Api(tags = "spu信息 管理")
 @RestController
@@ -36,9 +37,21 @@ public class SpuController {
     @Autowired
     private SpuService spuService;
 
+    /**
+     * 保存
+     */
+    @PostMapping
+    public ResponseVo save(@RequestBody SpuVo spuVo) throws FileNotFoundException {
+        spuService.bigSave(spuVo);
+        return ResponseVo.ok();
+    }
+
+    //商品库存中根据category_id查找商品对应的spu
     @GetMapping("category/{categoryId}")
-    public ResponseVo<PageResultVo> querySpuByPageAndCid3(@PathVariable("categoryId")Long cid, PageParamVo paramVo){
-        PageResultVo pageResultVo = this.spuService.querySpuByPageAndCid3(cid, paramVo);
+    public ResponseVo<PageResultVo> getSpuByCategoryIdAndPageParamVo(
+            @PathVariable("categoryId") Long categoryId,  PageParamVo pageParamVo){
+        PageResultVo pageResultVo = spuService.getSpuByCategoryIdAndPageParamVo(categoryId,pageParamVo);
+
         return ResponseVo.ok(pageResultVo);
     }
 
@@ -65,16 +78,7 @@ public class SpuController {
         return ResponseVo.ok(spu);
     }
 
-    /**
-     * 保存
-     */
-    @PostMapping
-    @ApiOperation("保存")
-    public ResponseVo<Object> save(@RequestBody SpuVo spuVo) throws FileNotFoundException {
-		this.spuService.bigSave(spuVo);
 
-        return ResponseVo.ok();
-    }
 
     /**
      * 修改

@@ -6,13 +6,7 @@ import com.atguigu.gmall.sms.vo.SkuSaleVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.atguigu.gmall.sms.entity.SkuBoundsEntity;
 import com.atguigu.gmall.sms.service.SkuBoundsService;
@@ -23,11 +17,11 @@ import com.atguigu.gmall.common.bean.PageParamVo;
 /**
  * 商品spu积分设置
  *
- * @author fengge
- * @email fengge@atguigu.com
- * @date 2020-07-20 14:28:31
+ * @author Mr.Ding
+ * @email MrDing@atguigu.com
+ * @date 2020-07-22 21:01:18
  */
-@Api(tags = "商品spu积分设置 管理")
+@Api(tags = "商品spu积分设置管理")
 @RestController
 @RequestMapping("sms/skubounds")
 public class SkuBoundsController {
@@ -35,11 +29,11 @@ public class SkuBoundsController {
     @Autowired
     private SkuBoundsService skuBoundsService;
 
-    @PostMapping("sku/sales")
-    public ResponseVo<Object> saveSkuSales(@RequestBody SkuSaleVo skuSaleVo){
-        this.skuBoundsService.saveSkuSales(skuSaleVo);
-
-        return ResponseVo.ok();
+    @ApiOperation("向sku活动表中插入数据")
+    @PostMapping("skuSale/save")
+    public ResponseVo<Object> saveSkuSale(@RequestBody SkuSaleVo skuSaleVo){
+        skuBoundsService.saveSkuSale(skuSaleVo);
+        return ResponseVo.ok(null);
     }
 
     /**

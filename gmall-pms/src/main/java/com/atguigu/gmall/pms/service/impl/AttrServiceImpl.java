@@ -1,9 +1,11 @@
 package com.atguigu.gmall.pms.service.impl;
 
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,11 +31,14 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, AttrEntity> impleme
     }
 
     @Override
-    public List<AttrEntity> queryAttrsByCid(Long cid, Integer type, Integer searchType) {
+    public List<AttrEntity> getAttrByCid(Long cid, Integer type, Integer searchType) {
         QueryWrapper<AttrEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq("category_id", cid);
 
-        if (type != null){
+        if (cid != null) {
+            wrapper.eq("category_id", cid);
+        }
+
+        if (type != null) {
             wrapper.eq("type", type);
         }
 
@@ -41,7 +46,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrMapper, AttrEntity> impleme
             wrapper.eq("search_type", searchType);
         }
 
-        return this.list(wrapper);
+        List<AttrEntity> attrEntities = this.baseMapper.selectList(wrapper);
+
+        return attrEntities;
     }
 
 }

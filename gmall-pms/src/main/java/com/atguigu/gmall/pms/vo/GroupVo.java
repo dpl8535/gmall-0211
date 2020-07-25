@@ -6,8 +6,14 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author dplStart
+ * @create 下午 06:08
+ * @Description
+ */
 @Data
-public class AttrGroupVo extends AttrGroupEntity {
+public class GroupVo extends AttrGroupEntity {
 
     private List<AttrEntity> attrEntities;
+
 }

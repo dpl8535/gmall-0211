@@ -5,12 +5,18 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author dplStart
+ * @create 下午 10:47
+ * @Description
+ */
 @Data
 public class SpuVo extends SpuEntity {
 
-    private List<String> spuImages;
+    List<String> spuImages;
 
-    private List<BaseAttrValueVo> baseAttrs;
+    List<BaseAttrValueVo> baseAttrs;
 
-    private List<SkuVo> skus;
+    List<SkuVo> skus;
+
 }

@@ -5,7 +5,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParser
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//Spring boot方式
+/**
+ * @author dplStart
+ * @create 下午 08:27
+ * @Description
+ */
 @Configuration
 public class MybatisPlusConfig {
 
