@@ -34,6 +34,12 @@ public class SpuAttrValueController {
     @Autowired
     private SpuAttrValueService spuAttrValueService;
 
+    @GetMapping("spu/{spuId}")
+    public ResponseVo<List<SpuAttrValueEntity>> querySpuAttrValueBySpuId(@PathVariable("spuId") Long spuId){
+        List<SpuAttrValueEntity> spuAttrValueEntities = this.spuAttrValueService.querySpuAttrValueBySpuId(spuId);
+        return ResponseVo.ok(spuAttrValueEntities);
+    }
+
     /**
      * 列表
      */

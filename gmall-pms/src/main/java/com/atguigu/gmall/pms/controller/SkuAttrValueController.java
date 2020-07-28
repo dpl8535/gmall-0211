@@ -34,12 +34,19 @@ public class SkuAttrValueController {
     @Autowired
     private SkuAttrValueService skuAttrValueService;
 
+    //根据skuId和分类id获取到规格参数及值
+    @GetMapping("attrVal/{skuId}")
+    public ResponseVo<List<SkuAttrValueEntity>> querySkuAttrValueBySkuId(@PathVariable("skuId") Long skuId) {
+        List<SkuAttrValueEntity> skuAttrValueEntities = this.skuAttrValueService.querySkuAttrValueBySkuId(skuId);
+        return ResponseVo.ok(skuAttrValueEntities);
+    }
+
     /**
      * 列表
      */
     @GetMapping
     @ApiOperation("分页查询")
-    public ResponseVo<PageResultVo> querySkuAttrValueByPage(PageParamVo paramVo){
+    public ResponseVo<PageResultVo> querySkuAttrValueByPage(PageParamVo paramVo) {
         PageResultVo pageResultVo = skuAttrValueService.queryPage(paramVo);
 
         return ResponseVo.ok(pageResultVo);
@@ -51,8 +58,8 @@ public class SkuAttrValueController {
      */
     @GetMapping("{id}")
     @ApiOperation("详情查询")
-    public ResponseVo<SkuAttrValueEntity> querySkuAttrValueById(@PathVariable("id") Long id){
-		SkuAttrValueEntity skuAttrValue = skuAttrValueService.getById(id);
+    public ResponseVo<SkuAttrValueEntity> querySkuAttrValueById(@PathVariable("id") Long id) {
+        SkuAttrValueEntity skuAttrValue = skuAttrValueService.getById(id);
 
         return ResponseVo.ok(skuAttrValue);
     }
@@ -62,8 +69,8 @@ public class SkuAttrValueController {
      */
     @PostMapping
     @ApiOperation("保存")
-    public ResponseVo<Object> save(@RequestBody SkuAttrValueEntity skuAttrValue){
-		skuAttrValueService.save(skuAttrValue);
+    public ResponseVo<Object> save(@RequestBody SkuAttrValueEntity skuAttrValue) {
+        skuAttrValueService.save(skuAttrValue);
 
         return ResponseVo.ok();
     }
@@ -73,8 +80,8 @@ public class SkuAttrValueController {
      */
     @PostMapping("/update")
     @ApiOperation("修改")
-    public ResponseVo update(@RequestBody SkuAttrValueEntity skuAttrValue){
-		skuAttrValueService.updateById(skuAttrValue);
+    public ResponseVo update(@RequestBody SkuAttrValueEntity skuAttrValue) {
+        skuAttrValueService.updateById(skuAttrValue);
 
         return ResponseVo.ok();
     }
@@ -84,8 +91,8 @@ public class SkuAttrValueController {
      */
     @PostMapping("/delete")
     @ApiOperation("删除")
-    public ResponseVo delete(@RequestBody List<Long> ids){
-		skuAttrValueService.removeByIds(ids);
+    public ResponseVo delete(@RequestBody List<Long> ids) {
+        skuAttrValueService.removeByIds(ids);
 
         return ResponseVo.ok();
     }

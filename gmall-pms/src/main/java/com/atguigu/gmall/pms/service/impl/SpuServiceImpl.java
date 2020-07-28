@@ -1,8 +1,7 @@
 package com.atguigu.gmall.pms.service.impl;
 
 import com.atguigu.gmall.pms.entity.*;
-import com.atguigu.gmall.pms.feign.GmallSmsSaleAttr;
-import com.atguigu.gmall.pms.mapper.SkuAttrValueMapper;
+import com.atguigu.gmall.pms.api.GmallSmsSaleAttr;
 import com.atguigu.gmall.pms.mapper.SkuMapper;
 import com.atguigu.gmall.pms.mapper.SpuDescMapper;
 import com.atguigu.gmall.pms.service.*;
@@ -16,14 +15,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -33,8 +27,6 @@ import com.atguigu.gmall.common.bean.PageResultVo;
 import com.atguigu.gmall.common.bean.PageParamVo;
 
 import com.atguigu.gmall.pms.mapper.SpuMapper;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 
