@@ -23,7 +23,7 @@ public class SearchParamVo {
     private Double priceFrom;
     private Double priceTo;
 
-    private Integer pageNo = 1;
+    private Integer pageNum = 1;
     private final Integer pageSize = 20;
 
     private Boolean store;

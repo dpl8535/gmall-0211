@@ -1,6 +1,7 @@
 package com.atguigu.gmall.search.service;
 
 import com.atguigu.gmall.search.pojo.SearchParamVo;
+import com.atguigu.gmall.search.pojo.SearchResponseVo;
 
 /**
  * @author dplStart
@@ -9,5 +10,5 @@ import com.atguigu.gmall.search.pojo.SearchParamVo;
  */
 public interface SearchService {
 
-    void search(SearchParamVo searchParamVo);
+    SearchResponseVo search(SearchParamVo searchParamVo);
 }

@@ -20,6 +20,10 @@ spring:
   elasticsearch:
     rest:
       uris: http://192.168.37.132:9200
+  jackson:
+    default-property-inclusion: non_null
+  thymeleaf: #关闭缓存
+    cache: false
 feign:
   sentinel:
     enabled: true
