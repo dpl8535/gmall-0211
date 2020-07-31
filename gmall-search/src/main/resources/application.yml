@@ -24,6 +24,17 @@ spring:
     default-property-inclusion: non_null
   thymeleaf: #关闭缓存
     cache: false
+  rabbitmq:
+    virtual-host: /mrding
+    host: 192.168.37.132
+    port: 5672
+    username: mrding
+    password: mrding
+    listener:
+      simple:
+        acknowledge-mode: manual #手动提交
+        prefetch: 1 #能者多劳
+        concurrency: 3 #多线程
 feign:
   sentinel:
     enabled: true

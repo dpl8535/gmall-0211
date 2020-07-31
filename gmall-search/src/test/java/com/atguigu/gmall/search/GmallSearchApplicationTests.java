@@ -47,6 +47,7 @@ class GmallSearchApplicationTests {
             PageParamVo pageParamVo = new PageParamVo();
             pageParamVo.setPageNum(pageNum);
             pageParamVo.setPageSize(pageSize);
+
             ResponseVo<List<SpuEntity>> spuResponseVo  = this.pmsClient.querySpuByPageByJson(pageParamVo);
             List<SpuEntity> spuEntities = spuResponseVo.getData();
             if (CollectionUtils.isEmpty(spuEntities)){

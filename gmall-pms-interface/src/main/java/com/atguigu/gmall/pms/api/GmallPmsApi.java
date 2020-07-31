@@ -40,4 +40,15 @@ public interface GmallPmsApi {
     //根据skuId和分类id获取到规格参数及值
     @GetMapping("pms/skuattrvalue/attrVal/{skuId}")
     public ResponseVo<List<SkuAttrValueEntity>> querySkuAttrValueBySkuId(@PathVariable("skuId") Long skuId);
+
+    @GetMapping("pms/spu/{id}")
+    @ApiOperation("详情查询")
+    public ResponseVo<SpuEntity> querySpuById(@PathVariable("id") Long id);
+
+    @GetMapping("pms/category/parent/{parentId}")
+    public ResponseVo<List<CategoryEntity>> getCategoriesByParentId(
+            @PathVariable("parentId") Long parentId);
+
+    @GetMapping("pms/category/subs/{pid}")
+    public ResponseVo<List<CategoryEntity>> getCategoriesWitSubs(@PathVariable("pid") long pid);
 }

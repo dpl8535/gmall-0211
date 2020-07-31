@@ -11,6 +11,8 @@ import com.atguigu.gmall.pms.vo.SpuVo;
 import com.atguigu.gmall.sms.vo.SkuSaleVo;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,9 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper, SpuEntity> implements
 
     @Autowired
     private SpuDescService spuDescService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public PageResultVo queryPage(PageParamVo paramVo) {
@@ -113,7 +118,20 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper, SpuEntity> implements
         saveSku(spuVo, spuId);
 
 //        int i = 10 / 0;
+
+        //发送spuId到交换机
+        rabbitTemplate.convertAndSend("PMS-ITEM-EXCHANGE", "item.insert", spuId);
+
     }
+
+   /* public void sendMessage(Long spuId){
+        try {
+
+            System.out.println("消息发送成功");
+        } catch (AmqpException e) {
+            e.printStackTrace();
+        }
+    }*/
 
     public void saveSku(SpuVo spuVo, Long spuId) {
         //2.1.向pms_sku表中插入

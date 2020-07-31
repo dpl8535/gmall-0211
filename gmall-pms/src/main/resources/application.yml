@@ -14,3 +14,12 @@ spring:
     alibaba:
       seata:
         tx-service-group: pms-service-fescar-service-group
+  rabbitmq:
+    virtual-host: /mrding
+    host: 192.168.37.132
+    port: 5672
+    username: mrding
+    password: mrding
+    publisher-confirm-type: correlated #异步方式提交
+    publisher-returns: true
+

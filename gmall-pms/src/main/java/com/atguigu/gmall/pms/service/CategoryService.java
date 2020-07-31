@@ -20,5 +20,7 @@ public interface CategoryService extends IService<CategoryEntity> {
     PageResultVo queryPage(PageParamVo paramVo);
 
     List<CategoryEntity> queryCateGoryByParentId(Long parentId);
+
+    List<CategoryEntity> getCategoriesWitSubs(long pid);
 }
 

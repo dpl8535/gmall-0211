@@ -1,5 +1,7 @@
 package com.atguigu.gmall.pms.service.impl;
 
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,9 @@ import com.atguigu.gmall.pms.service.CategoryService;
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, CategoryEntity> implements CategoryService {
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     @Override
     public PageResultVo queryPage(PageParamVo paramVo) {
@@ -38,6 +43,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, CategoryEnt
             wrapper.eq("parent_id", parentId);
         }
         List<CategoryEntity> categoryEntities = this.baseMapper.selectList(wrapper);
+        return categoryEntities;
+    }
+
+    @Override
+    public List<CategoryEntity> getCategoriesWitSubs(long pid) {
+        List<CategoryEntity> categoryEntities = categoryMapper.getCategoriesWitSubs(pid);
         return categoryEntities;
     }
 

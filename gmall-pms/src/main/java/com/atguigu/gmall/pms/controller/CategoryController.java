@@ -34,6 +34,12 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @GetMapping("subs/{pid}")
+    public ResponseVo<List<CategoryEntity>> getCategoriesWitSubs(@PathVariable("pid") long pid){
+        List<CategoryEntity> subCategoryEntities = categoryService.getCategoriesWitSubs(pid);
+        return ResponseVo.ok(subCategoryEntities);
+    }
+
     @GetMapping("parent/{parentId}")
     public ResponseVo<List<CategoryEntity>> getCategoriesByParentId(
             @PathVariable("parentId") Long parentId){

@@ -28,6 +28,7 @@ public class CorsConfig {
         //允许跨域的地址信息，写*则不允许使用cookie
         corsConfiguration.addAllowedOrigin("http://manager.gmall.com");
         corsConfiguration.addAllowedOrigin("http://gmall.com");
+        corsConfiguration.addAllowedOrigin("http://www.gmall.com");
 
         //允许携带coolie信息
         corsConfiguration.setAllowCredentials(true);
