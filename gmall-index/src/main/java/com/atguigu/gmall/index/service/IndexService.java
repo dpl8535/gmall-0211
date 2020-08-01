@@ -13,4 +13,12 @@ public interface IndexService {
     List<CategoryEntity> queryLevel1Category();
 
     List<CategoryEntity> queryLevel2And3Category(Long pid);
+
+    void testLock();
+
+    void testLock2();
+
+    public void testSubLock2();
+
+    public void testLock3();
 }
