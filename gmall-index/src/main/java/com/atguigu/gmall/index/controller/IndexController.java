@@ -55,5 +55,40 @@ public class IndexController {
         return ResponseVo.ok();
     }
 
+    @ResponseBody
+    @GetMapping("index/write")
+    public ResponseVo<String> testWrite(){
+        String writeText = indexService.testWrite();
+        return ResponseVo.ok("写入的数据为：" + writeText);
+    }
+    @ResponseBody
+    @GetMapping("index/read")
+    public ResponseVo<String> testRead(){
+        String readText = indexService.testRead();
+        return ResponseVo.ok("读到的数据为：" + readText);
+    }
+
+    @ResponseBody
+    @GetMapping("index/semaphore")
+    public ResponseVo<String> testSemaphore(){
+        String testSemaphore = indexService.testSemaphore();
+        return ResponseVo.ok(testSemaphore);
+    }
+
+    @ResponseBody
+    @GetMapping("index/testLatch")
+    public ResponseVo<String> testLatch(){
+        String testLatch = indexService.testLatch();
+        return ResponseVo.ok(testLatch);
+    }
+
+    @ResponseBody
+    @GetMapping("index/testOut")
+    public ResponseVo<String> testOut(){
+        String testOut = indexService.testOut();
+        return ResponseVo.ok(testOut);
+    }
+
+
 
 }

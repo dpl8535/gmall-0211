@@ -18,7 +18,17 @@ public interface IndexService {
 
     void testLock2();
 
-    public void testSubLock2();
+    void testSubLock2();
 
-    public void testLock3();
+    void testLock3();
+
+    String testWrite();
+
+    String testRead();
+
+    String testSemaphore();
+
+    String testLatch();
+
+    String testOut();
 }
