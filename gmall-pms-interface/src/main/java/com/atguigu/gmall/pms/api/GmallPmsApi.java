@@ -4,11 +4,10 @@ import com.atguigu.gmall.common.bean.PageParamVo;
 import com.atguigu.gmall.common.bean.PageResultVo;
 import com.atguigu.gmall.common.bean.ResponseVo;
 import com.atguigu.gmall.pms.entity.*;
+import com.atguigu.gmall.pms.vo.ItemGroupVo;
+import com.atguigu.gmall.pms.vo.SaleAttrValueVo;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,4 +50,32 @@ public interface GmallPmsApi {
 
     @GetMapping("pms/category/subs/{pid}")
     public ResponseVo<List<CategoryEntity>> getCategoriesWitSubs(@PathVariable("pid") long pid);
+
+    @GetMapping("pms/category/cates/{cid}")
+    public ResponseVo<List<CategoryEntity>> query123CategoriesByCid3(@PathVariable("cid") Long cid);
+
+    @GetMapping("pms/sku/{id}")
+    @ApiOperation("详情查询")
+    public ResponseVo<SkuEntity> querySkuById(@PathVariable("id") Long id);
+
+    @GetMapping("pms/skuimages/images/{skuId}")
+    public ResponseVo<List<SkuImagesEntity>> queryImagesBySkuId(@PathVariable("skuId") Long skuId);
+
+    @GetMapping("pms/skuattrvalue/spu/{spuId}")
+    public ResponseVo<List<SaleAttrValueVo>> querySaleItemAttrValueBySpuId(@PathVariable("spuId")Long spuId);
+
+    @GetMapping("pms/skuattrvalue/sku/{skuId}")
+    public ResponseVo<List<SkuAttrValueEntity>> querySaleAttrValueBySkuId(@PathVariable("skuId") Long skuId);
+
+    @GetMapping("pms/skuattrvalue/sku/sku/{spuId}")
+    public ResponseVo<String> querySaleAttrMappingSkuIdBySpuId(@PathVariable("spuId") Long spuId);
+
+    @GetMapping("pms/spudesc/{spuId}")
+    @ApiOperation("详情查询")
+    public ResponseVo<SpuDescEntity> querySpuDescById(@PathVariable("spuId") Long spuId);
+
+    @GetMapping("pms/attrgroup/item/{cid}")
+    public ResponseVo<List<ItemGroupVo>> queryGroupWithAttrValue(@PathVariable("cid") Long cid,
+                                                                 @RequestParam Long spuId,
+                                                                 @RequestParam Long skuId);
 }

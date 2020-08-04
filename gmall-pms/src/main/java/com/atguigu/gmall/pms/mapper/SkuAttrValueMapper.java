@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * sku销售属性&值
@@ -17,4 +18,7 @@ import java.util.List;
 public interface SkuAttrValueMapper extends BaseMapper<SkuAttrValueEntity> {
 
     List<SkuAttrValueEntity> querySkuAttrValueBySkuId(Long skuId);
+
+
+    List<Map<String, Object>> querySaleAttrMappingSkuIdBySpuId(Long spuId);
 }

@@ -4,6 +4,7 @@ import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,21 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, CategoryEnt
     public List<CategoryEntity> getCategoriesWitSubs(long pid) {
         List<CategoryEntity> categoryEntities = categoryMapper.getCategoriesWitSubs(pid);
         return categoryEntities;
+    }
+
+    @Override
+    public List<CategoryEntity> query123CategoriesByCid3(Long cid) {
+
+        //根据三级分类id查询到三级分类信息
+        CategoryEntity level3categoryEntity = this.categoryMapper.selectById(cid);
+
+        //根据三级父id查询到二级分类信息
+        CategoryEntity level2CategoryEntity = this.categoryMapper.selectById(level3categoryEntity.getParentId());
+
+        //根据二级分类父id查询一级分类信息
+        CategoryEntity level1CategoryEntity = this.categoryMapper.selectById(level2CategoryEntity.getParentId());
+
+        return Arrays.asList(level1CategoryEntity,level2CategoryEntity,level3categoryEntity);
     }
 
 }

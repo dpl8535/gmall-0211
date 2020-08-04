@@ -26,13 +26,20 @@ import com.atguigu.gmall.common.bean.PageParamVo;
  * @email MrDing@atguigu.com
  * @date 2020-07-20 19:47:01
  */
-@Api(tags = "商品三级分类 管理")
+@Api(tags = "商品三级分类管理")
 @RestController
 @RequestMapping("pms/category")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    //	1. 根据三级分类的id查询一二三级分类的集合
+    @GetMapping("cates/{cid}")
+    public ResponseVo<List<CategoryEntity>> query123CategoriesByCid3(@PathVariable("cid") Long cid){
+        List<CategoryEntity> categoryEntities =  this.categoryService.query123CategoriesByCid3(cid);
+        return ResponseVo.ok(categoryEntities);
+    }
 
     @GetMapping("subs/{pid}")
     public ResponseVo<List<CategoryEntity>> getCategoriesWitSubs(@PathVariable("pid") long pid){

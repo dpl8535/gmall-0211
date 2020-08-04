@@ -2,7 +2,9 @@ package com.atguigu.gmall.sms.controller;
 
 import java.util.List;
 
+import com.atguigu.gmall.sms.vo.ItemSaleVo;
 import com.atguigu.gmall.sms.vo.SkuSaleVo;
+import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,17 @@ public class SkuBoundsController {
 
     @Autowired
     private SkuBoundsService skuBoundsService;
+
+    /**
+     * 根据skuId获取到销优惠售信息
+     * @param skuId
+     * @return
+     */
+    @GetMapping("sale/{skuId}")
+    public ResponseVo<List<ItemSaleVo>> queryItemSalesBySkuId(@PathVariable("skuId") Long skuId){
+        List<ItemSaleVo> itemSaleVos = this.skuBoundsService.queryItemSalesBySkuId(skuId);
+        return ResponseVo.ok(itemSaleVos);
+    }
 
     @ApiOperation("向sku活动表中插入数据")
     @PostMapping("skuSale/save")
