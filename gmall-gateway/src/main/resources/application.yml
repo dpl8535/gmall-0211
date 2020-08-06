@@ -11,6 +11,8 @@ spring:
           uri: lb://pms-service
           predicates:
             - Path=/pms/**
+          filters:
+            - Auth=/pms/brand
         - id: oms-service # 订单管理路由
           uri: lb://oms-service
           predicates:
@@ -34,9 +36,31 @@ spring:
         - id: index-route1 # 首页的同步请求路由
           uri: lb://index-service
           predicates:
-            - Host=www.gmall.com
+            - Host=www.gmall.com,gmall.com
           # - Path=/index/**  如果写在一个里面，他们的关系是and关系
         - id: index-route2 # 首页的异步请求路由
           uri: lb://index-service
           predicates:
             - Path=/index/**
+        - id: item-route
+          uri: lb://item-service
+          predicates:
+            - Host=item.gmall.com
+        - id: message-route
+          uri: lb://message-service
+          predicates:
+            - Path=/message/**
+        - id: auth-route
+          uri: lb://auth-service
+          predicates:
+            - Host=sso.gmall.com
+        - id: cart-route
+          uri: lb://cart-service
+          predicates:
+            - Host=cart.gmall.com
+      x-forwarded:
+        host-enabled: true
+auth:
+  jwt:
+    pubKeyPath: D:\\ideaIU-2019.2\\workspace-gulishop\\rsa\\rsa.pub
+    cookieName: GMALL_TOKEN

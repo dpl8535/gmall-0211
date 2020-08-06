@@ -4,14 +4,9 @@ import java.util.List;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.atguigu.gmall.ums.entity.UserEntity;
 import com.atguigu.gmall.ums.service.UserService;
@@ -34,12 +29,53 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+    /**
+     * 根据用户名和密码查询用户是否存在
+     * @param loginName
+     * @param password
+     * @return
+     */
+    @GetMapping("query")
+    public ResponseVo<UserEntity> queryUser(@RequestParam String loginName,
+                                            @RequestParam String password) {
+        UserEntity userEntity = this.userService.queryUser(loginName, password);
+        return ResponseVo.ok(userEntity);
+    }
+
+    /**
+     * 用户注册
+     *
+     * @param user 用户信息
+     * @param code 验证码
+     * @return
+     */
+    @PostMapping("register")
+    public ResponseVo<UserEntity> register(UserEntity user, @RequestParam("code") String code) {
+        this.userService.register(user, code);
+        return ResponseVo.ok();
+    }
+
+    /**
+     * 如果数据库中不存在该信息则可以注册
+     *
+     * @param data
+     * @param type
+     * @return
+     */
+    @GetMapping("check/{data}/{type}")
+    public ResponseVo<Boolean> check(@PathVariable("data") String data, @PathVariable("type") Integer type) {
+        Boolean b = this.userService.check(data, type);
+        return ResponseVo.ok(b);
+
+    }
+
     /**
      * 列表
      */
     @GetMapping
     @ApiOperation("分页查询")
-    public ResponseVo<PageResultVo> queryUserByPage(PageParamVo paramVo){
+    public ResponseVo<PageResultVo> queryUserByPage(PageParamVo paramVo) {
         PageResultVo pageResultVo = userService.queryPage(paramVo);
 
         return ResponseVo.ok(pageResultVo);
@@ -51,8 +87,8 @@ public class UserController {
      */
     @GetMapping("{id}")
     @ApiOperation("详情查询")
-    public ResponseVo<UserEntity> queryUserById(@PathVariable("id") Long id){
-		UserEntity user = userService.getById(id);
+    public ResponseVo<UserEntity> queryUserById(@PathVariable("id") Long id) {
+        UserEntity user = userService.getById(id);
 
         return ResponseVo.ok(user);
     }
@@ -62,8 +98,8 @@ public class UserController {
      */
     @PostMapping
     @ApiOperation("保存")
-    public ResponseVo<Object> save(@RequestBody UserEntity user){
-		userService.save(user);
+    public ResponseVo<Object> save(@RequestBody UserEntity user) {
+        userService.save(user);
 
         return ResponseVo.ok();
     }
@@ -73,8 +109,8 @@ public class UserController {
      */
     @PostMapping("/update")
     @ApiOperation("修改")
-    public ResponseVo update(@RequestBody UserEntity user){
-		userService.updateById(user);
+    public ResponseVo update(@RequestBody UserEntity user) {
+        userService.updateById(user);
 
         return ResponseVo.ok();
     }
@@ -84,8 +120,8 @@ public class UserController {
      */
     @PostMapping("/delete")
     @ApiOperation("删除")
-    public ResponseVo delete(@RequestBody List<Long> ids){
-		userService.removeByIds(ids);
+    public ResponseVo delete(@RequestBody List<Long> ids) {
+        userService.removeByIds(ids);
 
         return ResponseVo.ok();
     }

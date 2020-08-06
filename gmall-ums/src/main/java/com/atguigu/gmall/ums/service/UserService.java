@@ -17,5 +17,11 @@ import java.util.Map;
 public interface UserService extends IService<UserEntity> {
 
     PageResultVo queryPage(PageParamVo paramVo);
+
+    Boolean check(String data, Integer type);
+
+    void register(UserEntity user, String code);
+
+    UserEntity queryUser(String loginName, String password);
 }
 
