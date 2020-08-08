@@ -19,6 +19,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //配置拦截器，拦截所有请求
         registry.addInterceptor(loginInterceptor).addPathPatterns("/**");
     }
 }

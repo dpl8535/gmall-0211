@@ -19,11 +19,13 @@ public class Cart {
     private Long skuId;
     @TableField("`check`") // check是mysql的关键字，所以这里要加'`'号
     private Boolean check; // 选中状态
-    private String image;
+    private String defaultImage;
     private String title;
     @TableField("sale_attrs")
     private String saleAttrs; // 销售属性：List<SkuAttrValueEntity>的json格式
     private BigDecimal price; // 加入购物车时的价格
+    @TableField(exist = false)// 表示数据库中不用添加该字段
+    private BigDecimal currentPrice;
     private BigDecimal count;
     private Boolean store = false; // 是否有货
     private String sales; // 营销信息: List<ItemSaleVo>的json格式

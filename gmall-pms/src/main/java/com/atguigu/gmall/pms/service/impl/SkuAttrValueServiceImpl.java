@@ -86,7 +86,6 @@ public class SkuAttrValueServiceImpl extends ServiceImpl<SkuAttrValueMapper, Sku
     @Override
     public String querySaleAttrMappingSkuIdBySpuId(Long spuId) {
         List<Map<String, Object>> maps = this.attrValueMapper.querySaleAttrMappingSkuIdBySpuId(spuId);
-        System.out.println(maps);
         Map<String, Long> skusMap = maps.stream().collect(Collectors.toMap(map -> map.get("attr_values").toString(), map -> (Long) map.get("sku_id")));
         return JSON.toJSONString(skusMap);
     }

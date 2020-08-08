@@ -121,7 +121,6 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup
             }
             //4.遍历attrEntities获取到attrIds
             List<Long> attrIds = attrEntities.stream().map(AttrEntity::getId).collect(Collectors.toList());
-            System.out.println("attrIds = " + attrIds);
 
             List<AttrValueVo> attrValueVos = new ArrayList<>();
 
