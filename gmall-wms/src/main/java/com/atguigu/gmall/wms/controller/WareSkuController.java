@@ -1,7 +1,8 @@
 package com.atguigu.gmall.wms.controller;
 
-import java.util.List;
 
+
+import com.atguigu.gmall.wms.vo.SkuLockVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +21,9 @@ import com.atguigu.gmall.common.bean.PageResultVo;
 import com.atguigu.gmall.common.bean.ResponseVo;
 import com.atguigu.gmall.common.bean.PageParamVo;
 
+import java.util.List;
+
+
 /**
  * 商品库存
  *
@@ -35,7 +39,18 @@ public class WareSkuController {
     @Autowired
     private WareSkuService wareSkuService;
 
-    //根据skuId查询库存
+    @PostMapping("check/lock/{orderToken}")
+    public ResponseVo<List<SkuLockVo>> checkAndLock(@RequestBody List<SkuLockVo> lockVos, @PathVariable("orderToken")String orderToken){
+        // 锁定失败，skuLockVos中只有锁定失败的商品列表；锁定成功集合为null
+        List<SkuLockVo> skuLockVos = this.wareSkuService.checkAndLock(lockVos, orderToken);
+        return ResponseVo.ok(skuLockVos);
+    }
+
+    /**
+     *根据skuId查询库存
+     * @param skuId
+     * @return
+     */
     @GetMapping("sku/{skuId}")
     public ResponseVo<List<WareSkuEntity>> getWareSkuBySkuId(@PathVariable("skuId") Long skuId){
         List<WareSkuEntity> wareSkuEntityList = this.wareSkuService.list(new QueryWrapper<WareSkuEntity>().eq("sku_id", skuId));

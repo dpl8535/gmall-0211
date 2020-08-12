@@ -11,7 +11,7 @@ public interface AsyncCartService {
 
     public void updateCartByUserIdAndSkuId(String userId, Cart cart);
 
-    public void addCart(Cart cart);
+    public void addCart(String userId, Cart cart);
 
     void deleteCartsByUserId(String userId);
 

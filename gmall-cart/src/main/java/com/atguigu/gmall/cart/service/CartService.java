@@ -19,4 +19,10 @@ public interface CartService {
     void updateCart(Cart cart);
 
     void deleteCart(Long skuId);
+
+    String executor1();
+
+    String executor2() throws InterruptedException;
+
+    List<Cart> queryCheckedCartByUserId(Long userId);
 }

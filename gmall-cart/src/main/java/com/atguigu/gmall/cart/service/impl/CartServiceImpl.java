@@ -5,28 +5,27 @@ import com.atguigu.gmall.cart.feign.PmsGmallClient;
 import com.atguigu.gmall.cart.feign.SmsGmallClient;
 import com.atguigu.gmall.cart.feign.WmsGmallClient;
 import com.atguigu.gmall.cart.interceptor.LoginInterceptor;
-import com.atguigu.gmall.cart.mapper.CartMapper;
 import com.atguigu.gmall.cart.pojo.Cart;
-import com.atguigu.gmall.cart.pojo.UserInfo;
+import com.atguigu.gmall.common.bean.UserInfo;
 import com.atguigu.gmall.cart.service.AsyncCartService;
 import com.atguigu.gmall.cart.service.CartService;
 import com.atguigu.gmall.common.bean.ResponseVo;
-import com.atguigu.gmall.common.utils.CookieUtils;
 import com.atguigu.gmall.pms.entity.SkuAttrValueEntity;
 import com.atguigu.gmall.pms.entity.SkuEntity;
 import com.atguigu.gmall.sms.vo.ItemSaleVo;
 import com.atguigu.gmall.wms.entity.WareSkuEntity;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import jdk.internal.dynalink.beans.StaticClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.concurrent.ListenableFuture;
 
 import java.math.BigDecimal;
-import java.security.Key;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -120,7 +119,7 @@ public class CartServiceImpl implements CartService {
 
             // 保存到数据库中
 //            this.cartMapper.insert(cart);
-            this.asyncCartService.addCart(cart);
+            this.asyncCartService.addCart(userId, cart);
 
             // 新增实时价格到缓存
             this.redisTemplate.opsForValue().set(PRICE_PREFIX + skuId, skuEntity.getPrice().toString());
@@ -192,7 +191,7 @@ public class CartServiceImpl implements CartService {
                     this.asyncCartService.updateCartByUserIdAndSkuId(userId.toString(), cart);
                 } else {
                     cart.setUserId(userId.toString());
-                    this.asyncCartService.addCart(cart);
+                    this.asyncCartService.addCart(userId.toString(), cart);
                 }
                 loginCartHashOps.put(cart.getSkuId().toString(), JSON.toJSONString(cart));
             });
@@ -267,5 +266,69 @@ public class CartServiceImpl implements CartService {
             hashOps.delete(skuId.toString());
             this.asyncCartService.deletecartsBySkuIdAndUserId(userId, skuId);
         }
+    }
+
+
+    @Async
+    public String executor1() {
+        try {
+            System.out.println("这是service中executor1方法开始执行。。。。");
+            TimeUnit.SECONDS.sleep(4);
+            System.out.println("这是service中executor1方法执行完成。。。。");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 通过AsyncResult返回方法的返回结果集
+        return "hello executor1";
+    }
+
+    @Async
+    public String executor2() throws InterruptedException {
+//        try {
+        System.out.println("这是service中executor2方法开始执行。。。。");
+        TimeUnit.SECONDS.sleep(5);
+        int i = 1 / 0;
+        System.out.println("这是service中executor2方法执行完成。。。。");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        return "hello executor2";
+    }
+
+    @Async
+    public ListenableFuture<String> executor3() {
+        try {
+            System.out.println("这是service中executor1方法开始执行。。。。");
+            TimeUnit.SECONDS.sleep(4);
+            System.out.println("这是service中executor1方法执行完成。。。。");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 通过AsyncResult返回方法的返回结果集
+        return AsyncResult.forValue("hello executor1");
+    }
+
+    @Async
+    public ListenableFuture<String> executor4() {
+        try {
+            System.out.println("这是service中executor2方法开始执行。。。。");
+            TimeUnit.SECONDS.sleep(5);
+            int i = 1 / 0;
+            System.out.println("这是service中executor2方法执行完成。。。。");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AsyncResult.forExecutionException(e);
+        }
+        return AsyncResult.forValue("hello executor2");
+    }
+    @Override
+    public List<Cart> queryCheckedCartByUserId(Long userId) {
+
+        BoundHashOperations<String, Object, Object> hashOps = redisTemplate.boundHashOps(KEY_PREFIX + userId);
+        List<Object> cartJsons = hashOps.values();
+        if (!CollectionUtils.isEmpty(cartJsons)) {
+            return cartJsons.stream().map(cartJson -> JSON.parseObject(cartJson.toString(), Cart.class)).filter(cart -> cart.getCheck()).collect(Collectors.toList());
+        }
+        return null;
     }
 }
